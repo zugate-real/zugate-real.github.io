@@ -1,0 +1,27 @@
+title: Kumar Shubham
+description: >-
+  Senior iOS engineer in Bengaluru. Swift, SwiftUI, and the platform layer —
+  decoders, frameworks, migrations. Notes from building apps used by millions
+  of students.
+url: "https://kumarshubham.dev" # change if you pick a different domain
+author:
+  name: Kumar Shubham
+  email: the.official.kumar.shubham@gmail.com
+
+# Social (used by SEO tags and the footer)
+github_username: zugate-real
+linkedin_username: kumar-shubham-zugate
+
+# GitHub Pages native plugins — no Gemfile needed
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+markdown: kramdown
+highlighter: rouge
+permalink: /:title/
+
+# Don't publish the setup guide with the site
+exclude:
+  - README-SETUP.md
