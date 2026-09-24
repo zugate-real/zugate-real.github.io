@@ -3,57 +3,378 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Three — Support</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'sha256-mKPSizc7JGUZI4L+oChsONMC2bnKKHI6C+pQDIIosPg='; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F6F4EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131211" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Answers about Three: cancelling, restoring a purchase, moving to a new phone, exporting, reminders, widgets and privacy. Questions go to the person who made it.">
+<title>Support · Three</title>
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 <style>
-  :root { --ground:#F6F4EF; --ink:#1C1B18; --secondary:#6F6A60; --gold:#B8860B; }
-  @media (prefers-color-scheme: dark) { :root { --ground:#131211; --ink:#F2EFE9; --secondary:#9A948A; --gold:#E4BB5F; } }
-  body { margin:0; background:var(--ground); color:var(--ink); font: 17px/1.55 -apple-system, system-ui, sans-serif; }
-  main { max-width: 36rem; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
-  h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 .25rem; letter-spacing: -.01em; }
-  .label { font-size: .75rem; letter-spacing: .17em; text-transform: uppercase; color: var(--secondary); font-weight: 600; }
-  h2 { font-size: 1.1rem; margin: 2.5rem 0 .5rem; }
-  p { margin: .75rem 0; max-width: 62ch; }
-  .disc { width: 44px; height: 44px; border-radius: 50%; background: var(--gold); margin-bottom: 1.5rem; }
-  footer { margin-top: 3rem; color: var(--secondary); font-size: .9rem; }
-  a { color: inherit; }
+  /* The app's tokens: Ink in Shared/Presentation/HabitStyle.swift, Space and Radius in Typo.swift. */
+  :root {
+    --ground: #F6F4EF; --card: #FFFFFF; --ink: #1C1B18; --secondary: #59554D; --tertiary: #716B61;
+    --hairline: rgba(28, 27, 24, .12); --gold: #B8860B;
+    --todo-bg: #FFF1C2; --todo-ink: #3D2E00; --todo-line: #9A6F00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #131211; --card: #1E1C1A; --ink: #F2EFE9; --secondary: #B5B1A9; --tertiary: #8F897E;
+      --hairline: rgba(242, 239, 233, .14); --gold: #E4BB5F;
+      --todo-bg: #3A2F12; --todo-ink: #FBE7B0; --todo-line: #E4BB5F;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 1.0625rem/1.55 -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  .skip { position: absolute; left: 1rem; top: -5rem; background: var(--ink); color: var(--ground); padding: .75rem 1rem; border-radius: 12px; z-index: 2; }
+  .skip:focus { top: 1rem; }
+
+  .top .bar { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding-top: 1rem; padding-bottom: 1rem; }
+  .brand { display: flex; align-items: center; gap: .625rem; font-weight: 650; font-size: 1.125rem; letter-spacing: -.01em; }
+  .brand img { width: 40px; height: 40px; border-radius: 9px; box-shadow: 0 0 0 1px var(--hairline); }
+  .nav { display: flex; gap: .25rem; }
+  .nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .875rem; border-radius: 999px; color: var(--secondary); text-decoration: none; font-weight: 600; font-size: .9375rem; }
+  .nav a:hover { color: var(--ink); }
+  .nav a[aria-current="page"] { background: var(--card); color: var(--ink); box-shadow: 0 0 0 1px var(--hairline); }
+
+  .hero { padding: 1.5rem 0 1.25rem; }
+  .label { display: block; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--secondary); margin: 0 0 .5rem; }
+  h1 { font-size: clamp(1.875rem, 1.3rem + 2.4vw, 2.5rem); line-height: 1.1; letter-spacing: -.02em; margin: 0 0 .75rem; font-weight: 700; }
+  .lede { font-size: 1.1875rem; line-height: 1.5; margin: 0; }
+  h2 { font-size: 1.375rem; line-height: 1.25; letter-spacing: -.01em; margin: 0 0 .75rem; font-weight: 650; }
+  p { margin: .75rem 0; }
+  ul, ol { padding-left: 1.25rem; margin: .75rem 0; }
+  li { margin: .375rem 0; }
+  li::marker { color: var(--tertiary); }
+
+  a { color: var(--ink); text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: var(--secondary); }
+  a:hover { text-decoration-thickness: 2px; text-decoration-color: var(--ink); }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+  .ui { font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--hairline); border-radius: 22px; padding: 1.25rem; }
+
+  .draft { border: 1.5px dashed var(--todo-line); background: var(--todo-bg); color: var(--todo-ink); border-radius: 14px; padding: .75rem 1rem; margin: 0 0 1rem; font-size: .9375rem; }
+  .draft strong { font-weight: 700; }
+  .todo { background: var(--todo-bg); color: var(--todo-ink); border: 1px dashed var(--todo-line); border-radius: 6px; padding: .05em .35em; font-size: .9375em; font-weight: 600; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+  .contact h2 { margin-bottom: .25rem; }
+  .contact p { color: var(--secondary); font-size: .9375rem; }
+  .button { display: flex; align-items: center; justify-content: center; gap: .5rem; min-height: 52px; padding: .75rem 1.25rem; margin: 1rem 0 .75rem; border-radius: 14px; background: var(--ink); color: var(--ground); text-decoration: none; font-weight: 650; overflow-wrap: anywhere; text-align: center; }
+  .button:hover { color: var(--ground); opacity: .92; }
+  .button svg { width: 20px; height: 20px; flex: none; }
+  .contact ul { color: var(--secondary); font-size: .9375rem; margin-top: .25rem; }
+  .contact .address { text-align: center; color: var(--ink); font-weight: 600; margin: -.25rem 0 1rem; overflow-wrap: anywhere; user-select: all; -webkit-user-select: all; }
+
+  .find { margin: 1.75rem 0 0; }
+  .find label { display: block; font-weight: 650; margin-bottom: .375rem; }
+  .find input { width: 100%; min-height: 48px; padding: .625rem 1rem; font: inherit; color: var(--ink); background: var(--card); border: 1px solid var(--hairline); border-radius: 14px; -webkit-appearance: none; appearance: none; }
+  .find input::placeholder { color: var(--tertiary); opacity: 1; }
+  .find input:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .find .status { color: var(--secondary); font-size: .9375rem; min-height: 1.5em; margin: .5rem 0 0; }
+
+  .topics { margin: 1.25rem 0 0; }
+  .topics ul { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
+  .topics li { margin: 0; }
+  .topics a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1rem; border-radius: 999px; background: var(--card); border: 1px solid var(--hairline); text-decoration: none; font-weight: 600; font-size: .9375rem; }
+  .topics a:hover { border-color: var(--ink); }
+
+  .group { padding-top: 2.25rem; scroll-margin-top: .5rem; }
+  .group h2 { margin-bottom: .5rem; }
+  details { background: var(--card); border: 1px solid var(--hairline); border-radius: 14px; margin: .5rem 0; scroll-margin-top: .75rem; }
+  details[open] { border-color: var(--secondary); }
+  summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 52px; padding: .75rem 1rem; cursor: pointer; font-weight: 600; list-style: none; border-radius: 14px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: ""; flex: none; width: .55rem; height: .55rem; border-right: 2px solid var(--secondary); border-bottom: 2px solid var(--secondary); transform: rotate(45deg) translate(-2px, -2px); transition: transform .15s ease; }
+  details[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+  .answer { padding: 0 1rem 1rem; }
+  .answer > :first-child { margin-top: 0; }
+  .answer > :last-child { margin-bottom: 0; }
+  .answer .link { display: inline-block; margin-top: .25rem; font-size: .9375rem; color: var(--secondary); }
+
+  .still { margin-top: 2.5rem; text-align: center; }
+  .still h2 { margin-bottom: .25rem; }
+  .still p { color: var(--secondary); margin: .25rem 0 0; }
+
+  footer { margin-top: 3rem; padding: 1.5rem 0 3rem; border-top: 1px solid var(--hairline); color: var(--secondary); font-size: .9375rem; }
+  footer p { margin: .5rem 0; }
+  footer a { color: var(--secondary); }
+
+  [hidden] { display: none !important; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  @media print {
+    .skip, .nav, .find, .topics { display: none; }
+    body { background: #fff; color: #000; }
+    details > .answer { display: block; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <div class="disc" aria-hidden="true"></div>
-  <div class="label">Three · Support</div>
-  <h1>One person made this. Write to him.</h1>
+<a class="skip" href="#main">Skip to the answers</a>
 
-  <p>Email <a href="mailto:three.support.indie@gmail.com">three.support.indie@gmail.com</a>. Say which iPhone and which iOS version, and what you expected to happen. Replies come from the developer, usually within a day or two.</p>
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand"><img src="icon.png" alt="" width="40" height="40">Three</div>
+    <nav class="nav" aria-label="Three">
+      <a href="support.html" aria-current="page">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
+</header>
 
-  <h2>The widget doesn't update</h2>
-  <p>Open the app once; it refreshes every widget. If a Lock Screen widget still shows the old day, remove it and add it again from the Lock Screen's Customise screen.</p>
+<main id="main" class="wrap">
+  <div class="hero">
+    <span class="label">Three · Support</span>
+    <h1>Questions go to the person who made this.</h1>
+    <p class="lede">One person makes Three and reads every email. Most answers are below.</p>
+  </div>
 
-  <h2>I bought Lifetime on my old phone</h2>
-  <p>Open the app, go past the paywall to Restore Purchases, and sign in with the same Apple Account you bought with. Nothing else is needed, because there is no Three account.</p>
+  <div class="card contact" id="contact">
+    <h2>Write to me</h2>
+    <a class="button" href="mailto:three.support.indie@gmail.com?subject=Three">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+      Email me
+    </a>
+    <p class="address">three.support.indie@gmail.com</p>
+    <p>It helps to say:</p>
+    <ul>
+      <li>which iPhone, and which iOS version</li>
+      <li>Three's version, at the bottom of Settings</li>
+      <li>what you expected to happen, and what did</li>
+    </ul>
+  </div>
 
-  <h2>I didn't get a reminder</h2>
-  <p>Reminders are asked for after your first sealed day, never at launch. Check Settings → Notifications → Three on your phone, and Reminders inside the app. A habit you did before its reminder time will not be reminded about that day; that is on purpose.</p>
+  <div class="find" id="find-wrap" hidden>
+    <label for="find">Find an answer</label>
+    <input id="find" type="search" placeholder="Cancel, widget, new phone" autocomplete="off" spellcheck="false" aria-describedby="find-status">
+    <p class="status" id="find-status" role="status" aria-live="polite"></p>
+  </div>
 
-  <h2>I want my data</h2>
-  <p>Settings → Export your days writes one file with every habit and every day. It's yours. Nothing is kept anywhere but your phone, so if you delete the app, the record goes with it; export first.</p>
+  <nav class="topics" aria-label="Topics">
+    <ul>
+      <li><a href="#plans">Plans and payments</a></li>
+      <li><a href="#record">Your record</a></li>
+      <li><a href="#reminders-widgets">Reminders and widgets</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="#about">About Three</a></li>
+    </ul>
+  </nav>
 
-  <h2>Cancelling the free month</h2>
-  <p>The free month is Yearly's trial, run by Apple. To stop it before it turns paid, open Settings on your iPhone, tap your name, then Subscriptions, then Three, and Cancel. Do it at least a day before it ends. Three says on Today when your free month is about to end, and sends one reminder three days before. Cancelled or not, everything you did stays on your phone.</p>
+  <section class="group" id="plans" aria-labelledby="plans-h">
+    <h2 id="plans-h">Plans and payments</h2>
 
-  <h2>I want a refund</h2>
-  <p>Purchases are handled by Apple, so refunds are too — Three never sees your payment. Go to <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>, sign in with your Apple Account, and choose the purchase. If Apple turns it down and you think that is wrong, write to us and we will say what we can.</p>
+    <details id="cancel" data-also="subscription stop trial renew">
+      <summary>How do I cancel the free month or Yearly?</summary>
+      <div class="answer">
+        <p>The free month is Yearly's trial, and Apple runs it.</p>
+        <ol>
+          <li>Open Settings on your iPhone and tap your name.</li>
+          <li>Tap <span class="ui">Subscriptions</span>, then <span class="ui">Three</span>.</li>
+          <li>Tap <span class="ui">Cancel Subscription</span>.</li>
+        </ol>
+        <p>Do it at least a day before the free month ends. In its last three days, Today says when it turns paid. If notifications are allowed, Three also sends one reminder three days before.</p>
+        <p>Cancelled or not, everything you did stays on your phone.</p>
+        <a class="link" href="https://support.apple.com/en-us/118428">Apple's guide to cancelling</a>
+      </div>
+    </details>
 
-  <h2>I want my data deleted</h2>
-  <p>Settings → Start over removes every habit, every day, every note, photo and mood from this phone, and there is no copy anywhere else. <strong>Share how you use Three</strong> starts off. If you turned it on and want the usage records deleted too, email us: they carry no name or account, only an id drawn at random on your phone, so tell us roughly which days you used the app and we will have them removed. Turning the switch off stops any more being sent and clears anything still waiting on your phone.</p>
+    <details id="restore" data-also="purchase lifetime bought paid">
+      <summary>I paid on another phone. How do I get it back?</summary>
+      <div class="answer">
+        <p>In Three, open <span class="ui">Settings → Purchase → Restore purchases</span>. Use the same Apple Account you paid with. There's no Three account, so nothing else is needed. Lifetime and Yearly both come back this way.</p>
+        <p>Your habits and days move separately. See <a href="#new-phone">moving to a new phone</a>.</p>
+      </div>
+    </details>
 
-  <h2>Why only three habits?</h2>
-  <p>Because three is what people keep. When one becomes automatic it graduates and makes room. If you truly need a fourth, the app will ask you once and let you.</p>
+    <details id="read-only" data-also="locked paywall price cost plan">
+      <summary>Why can't I mark anything?</summary>
+      <div class="answer">
+        <p>The first day is free. After that, marking waits for a plan: Yearly, which starts with a free month the first time, or Lifetime, which is one payment. The App Store shows the price for your country.</p>
+        <p>Your record stays either way. You can still look back through it and export it.</p>
+        <p>If you've already paid, try <a href="#restore">Restore purchases</a>. If a plan has ended, marking stops from the day it ended.</p>
+      </div>
+    </details>
 
-  <footer>
-    <p><a href="privacy.html">Privacy policy</a></p>
-  </footer>
+    <details id="refund" data-also="money back">
+      <summary>Can I get a refund?</summary>
+      <div class="answer">
+        <p>Apple takes the payment, so Apple handles refunds too. Three never sees your payment.</p>
+        <p>Go to <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>, sign in with your Apple Account and choose the purchase. If Apple says no and you think that's wrong, write to me and I'll say what I can do.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="group" id="record" aria-labelledby="record-h">
+    <h2 id="record-h">Your record</h2>
+
+    <details id="new-phone" data-also="transfer switch iphone">
+      <summary>How do I move to a new phone?</summary>
+      <div class="answer">
+        <p>On the old phone, open <span class="ui">Settings → Move to another phone</span>. Three makes one locked file and shows a code.</p>
+        <ol>
+          <li>Send the file to the new phone, with AirDrop, Messages or Files.</li>
+          <li>Open it in Three on the new phone.</li>
+          <li>Type the code shown on the old phone.</li>
+        </ol>
+        <p>It brings every habit, every day and every note. Nobody can open the file without the code. Then <a href="#restore">restore your purchase</a> on the new phone.</p>
+        <p>If you set up the new phone from a backup of the old one, your days come along with it.</p>
+      </div>
+    </details>
+
+    <details id="export" data-also="backup download copy file">
+      <summary>How do I get a copy of my data?</summary>
+      <div class="answer">
+        <p><span class="ui">Settings → Export your days</span> writes one file with every habit and every day. Save it to Files or send it wherever you like. It's yours.</p>
+        <p>Nothing is kept anywhere but your phone, so if you delete the app, your record goes with it. Export first.</p>
+      </div>
+    </details>
+
+    <details id="erase" data-also="delete remove wipe reset">
+      <summary>How do I erase everything?</summary>
+      <div class="answer">
+        <p><span class="ui">Settings → Start over</span> erases every habit, every day, and every note, photo and mood on this phone. There's no copy anywhere else and no undo, so export first if you want to keep anything.</p>
+        <p>Two small things stay on the phone: the random number usage records are filed under, and the date Three first opened. The <a href="privacy.html#on-your-phone">privacy page</a> explains both.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="group" id="reminders-widgets" aria-labelledby="rw-h">
+    <h2 id="rw-h">Reminders and widgets</h2>
+
+    <details id="reminders" data-also="notifications nudge">
+      <summary>My reminders aren't arriving</summary>
+      <div class="answer">
+        <ul>
+          <li>Three asks about reminders after your first sealed day, never on first launch. If you said no then, turn them on in Three's <span class="ui">Settings → Reminders</span>.</li>
+          <li>Check that iOS allows them: Settings on your iPhone, then <span class="ui">Notifications → Three</span>. If they're off, Three's own Settings says so.</li>
+          <li>A Focus, such as Sleep or Do Not Disturb, can hold them back.</li>
+          <li>A habit you've already done that day isn't reminded about. That's on purpose.</li>
+          <li>Reminders move toward when you usually do a habit, so the time can shift a little. Each habit's own time is on its page.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details id="widget" data-also="lock screen refresh">
+      <summary>The widget doesn't update, or shows yesterday</summary>
+      <div class="answer">
+        <p>Open Three once. It refreshes every widget. If a Lock Screen widget still shows the old day, remove it and add it again.</p>
+      </div>
+    </details>
+
+    <details id="add-widget" data-also="widget lock screen siri watch shortcut">
+      <summary>How do I mark a habit without opening Three?</summary>
+      <div class="answer">
+        <p>Add a widget and tap a habit on it.</p>
+        <ul>
+          <li><strong>Home Screen:</strong> touch and hold an empty spot, tap <span class="ui">Edit</span>, then <span class="ui">Add Widget</span>, and choose Three.</li>
+          <li><strong>Lock Screen:</strong> touch and hold the Lock Screen, tap <span class="ui">Customise</span>, choose the Lock Screen, tap the row under the clock and choose Three.</li>
+        </ul>
+        <p>You can also tap Done on a reminder, say "Mark a habit done in Three" to Siri, or use Three on Apple Watch.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="group" id="privacy" aria-labelledby="privacy-h">
+    <h2 id="privacy-h">Privacy</h2>
+
+    <details id="what-leaves" data-also="data analytics tracking">
+      <summary>What leaves my phone?</summary>
+      <div class="answer">
+        <p>Nothing you write. Your habits, days, notes, photos and moods stay on the phone.</p>
+        <p>If you turn on <span class="ui">Settings → Share how you use Three</span>, short records of how the app is used go to PostHog, are stored in the EU, and are deleted after a year. They never include a habit's name, anything you wrote or the time of day. It starts off.</p>
+        <a class="link" href="privacy.html#usage-records">What's sent, and who keeps it</a>
+      </div>
+    </details>
+
+    <details id="usage-records" data-also="analytics posthog erase remove data">
+      <summary>Can you delete my usage records?</summary>
+      <div class="answer">
+        <p>Honestly, not one person's, today. Usage records carry no name, and the app doesn't show you the random number they're filed under, so neither of us can pick out yours.</p>
+        <p>What works: turn off <span class="ui">Settings → Share how you use Three</span>. That stops new ones at once and deletes any still waiting on your phone. What was already sent is deleted a year after it arrived.</p>
+        <a class="link" href="privacy.html#deleting">Deleting your data, in full</a>
+      </div>
+    </details>
+  </section>
+
+  <section class="group" id="about" aria-labelledby="about-h">
+    <h2 id="about-h">About Three</h2>
+
+    <details id="why-three" data-also="limit fourth more">
+      <summary>Why only three habits?</summary>
+      <div class="answer">
+        <p>Because three is what people keep. When one becomes automatic, it graduates and leaves, and that makes room. If you truly need a fourth, Three asks once and lets you.</p>
+      </div>
+    </details>
+
+    <details id="graduate" data-also="shelf automatic">
+      <summary>What does it mean when a habit graduates?</summary>
+      <div class="answer">
+        <p>Now and then, Three asks whether a habit feels automatic. Say yes twice in a row and it moves to your shelf, which frees its place. It's yours now. If it slips, you can bring it back.</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="still" id="still">
+    <h2>Still stuck?</h2>
+    <p>Write to <a href="mailto:three.support.indie@gmail.com?subject=Three">three.support.indie@gmail.com</a>.</p>
+  </div>
 </main>
+
+<footer class="wrap">
+  <p><a href="privacy.html">Privacy</a> · <a href="mailto:three.support.indie@gmail.com">three.support.indie@gmail.com</a></p>
+  <p>This page has a few lines of its own script to search the answers. It sends nothing and sets no cookies.</p>
+</footer>
+
+<script>
+(function () {
+  var items = [].slice.call(document.querySelectorAll('.group details'));
+  var groups = [].slice.call(document.querySelectorAll('.group'));
+  var box = document.getElementById('find');
+  var status = document.getElementById('find-status');
+
+  function openFromHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var el = id && document.getElementById(id);
+    if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView(); }
+  }
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+
+  document.getElementById('find-wrap').hidden = false;
+  box.addEventListener('input', function () {
+    var q = box.value.trim().toLowerCase();
+    var words = q.split(/\s+/).filter(Boolean).map(function (w) {
+      return new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    });
+    var shown = 0;
+    items.forEach(function (d) {
+      var all = d.textContent + ' ' + (d.getAttribute('data-also') || '');
+      var title = d.querySelector('summary').textContent;
+      var hit = words.every(function (r) { return r.test(all); });
+      d.hidden = !hit;
+      if (hit) { shown += 1; }
+      if (q) { d.open = hit && words.every(function (r) { return r.test(title); }); }
+      else { d.open = ('#' + d.id) === location.hash; }
+    });
+    groups.forEach(function (g) {
+      g.hidden = !g.querySelector('details:not([hidden])');
+    });
+    if (!q) { status.textContent = ''; }
+    else if (shown === 0) { status.textContent = 'Nothing here matches. Write to me instead.'; }
+    else if (shown === 1) { status.textContent = 'One answer.'; }
+    else { status.textContent = shown + ' answers.'; }
+  });
+})();
+</script>
 </body>
 </html>

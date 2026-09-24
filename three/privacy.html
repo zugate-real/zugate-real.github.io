@@ -3,67 +3,391 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Three — Privacy Policy</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F6F4EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131211" media="(prefers-color-scheme: dark)">
+<meta name="description" content="What Three keeps on your phone, the one thing that can leave it, who receives it, and how to stop it.">
+<title>Privacy · Three</title>
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 <style>
-  :root { --ground:#F6F4EF; --ink:#1C1B18; --secondary:#6F6A60; --gold:#B8860B; }
-  @media (prefers-color-scheme: dark) { :root { --ground:#131211; --ink:#F2EFE9; --secondary:#9A948A; --gold:#E4BB5F; } }
-  body { margin:0; background:var(--ground); color:var(--ink); font: 17px/1.55 -apple-system, system-ui, sans-serif; }
-  main { max-width: 36rem; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
-  h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 .25rem; letter-spacing: -.01em; }
-  .label { font-size: .75rem; letter-spacing: .17em; text-transform: uppercase; color: var(--secondary); font-weight: 600; }
-  h2 { font-size: 1.1rem; margin: 2.5rem 0 .5rem; }
-  p { margin: .75rem 0; max-width: 62ch; }
-  .disc { width: 44px; height: 44px; border-radius: 50%; background: var(--gold); margin-bottom: 1.5rem; }
-  footer { margin-top: 3rem; color: var(--secondary); font-size: .9rem; }
-  a { color: inherit; }
+  /* The app's tokens: Ink in Shared/Presentation/HabitStyle.swift, Space and Radius in Typo.swift. */
+  :root {
+    --ground: #F6F4EF; --card: #FFFFFF; --ink: #1C1B18; --secondary: #59554D; --tertiary: #716B61;
+    --hairline: rgba(28, 27, 24, .12); --gold: #B8860B;
+    --todo-bg: #FFF1C2; --todo-ink: #3D2E00; --todo-line: #9A6F00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #131211; --card: #1E1C1A; --ink: #F2EFE9; --secondary: #B5B1A9; --tertiary: #8F897E;
+      --hairline: rgba(242, 239, 233, .14); --gold: #E4BB5F;
+      --todo-bg: #3A2F12; --todo-ink: #FBE7B0; --todo-line: #E4BB5F;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 1.0625rem/1.55 -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  .skip { position: absolute; left: 1rem; top: -5rem; background: var(--ink); color: var(--ground); padding: .75rem 1rem; border-radius: 12px; z-index: 2; }
+  .skip:focus { top: 1rem; }
+
+  .top .bar { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding-top: 1rem; padding-bottom: 1rem; }
+  .brand { display: flex; align-items: center; gap: .625rem; font-weight: 650; font-size: 1.125rem; letter-spacing: -.01em; }
+  .brand img { width: 40px; height: 40px; border-radius: 9px; box-shadow: 0 0 0 1px var(--hairline); }
+  .nav { display: flex; gap: .25rem; }
+  .nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .875rem; border-radius: 999px; color: var(--secondary); text-decoration: none; font-weight: 600; font-size: .9375rem; }
+  .nav a:hover { color: var(--ink); }
+  .nav a[aria-current="page"] { background: var(--card); color: var(--ink); box-shadow: 0 0 0 1px var(--hairline); }
+
+  .hero { padding: 1.5rem 0 1.25rem; }
+  .label { display: block; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--secondary); margin: 0 0 .5rem; }
+  h1 { font-size: clamp(1.875rem, 1.3rem + 2.4vw, 2.5rem); line-height: 1.1; letter-spacing: -.02em; margin: 0 0 .75rem; font-weight: 700; }
+  .lede { font-size: 1.1875rem; line-height: 1.5; margin: 0; }
+  h2 { font-size: 1.375rem; line-height: 1.25; letter-spacing: -.01em; margin: 0 0 .75rem; font-weight: 650; }
+  h3 { font-size: 1.0625rem; line-height: 1.35; margin: 1.75rem 0 .25rem; font-weight: 650; }
+  p { margin: .75rem 0; }
+  ul, ol { padding-left: 1.25rem; margin: .75rem 0; }
+  li { margin: .375rem 0; }
+  li::marker { color: var(--tertiary); }
+
+  a { color: var(--ink); text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: var(--secondary); }
+  a:hover { text-decoration-thickness: 2px; text-decoration-color: var(--ink); }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+  .ui { font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--hairline); border-radius: 22px; padding: 1.25rem; }
+
+  .draft { border: 1.5px dashed var(--todo-line); background: var(--todo-bg); color: var(--todo-ink); border-radius: 14px; padding: .75rem 1rem; margin: 0 0 1rem; font-size: .9375rem; }
+  .draft strong { font-weight: 700; }
+  .todo { background: var(--todo-bg); color: var(--todo-ink); border: 1px dashed var(--todo-line); border-radius: 6px; padding: .05em .35em; font-size: .9375em; font-weight: 600; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+  .glance-title { margin-top: .5rem; }
+  .glance { display: grid; gap: .75rem; grid-template-columns: 1fr; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 34rem) { .glance { grid-template-columns: 1fr 1fr; } }
+  .glance li { margin: 0; background: var(--card); border: 1px solid var(--hairline); border-radius: 22px; padding: 1.125rem 1.25rem 1.25rem; }
+  .glance li.leaves { border: 1.5px solid var(--ink); }
+  .glance svg { width: 28px; height: 28px; display: block; }
+  .glance h3 { margin: .625rem 0 .25rem; font-size: 1.0625rem; }
+  .glance p { margin: 0; color: var(--secondary); font-size: .9375rem; line-height: 1.5; }
+  .glance a { display: inline-flex; align-items: center; min-height: 44px; font-size: .9375rem; font-weight: 600; margin-bottom: -.625rem; }
+  .pill { display: inline-block; margin-top: .5rem; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .25rem .625rem; border-radius: 999px; background: var(--ink); color: var(--ground); }
+
+  .toc { margin: 1.75rem 0 0; }
+  .toc h2 { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--secondary); font-weight: 700; margin: 0 0 .25rem; }
+  .toc ol { margin: 0; padding-left: 1.5rem; columns: 2 15rem; column-gap: 1.5rem; }
+  .toc li { margin: 0; break-inside: avoid; }
+  .toc a { display: inline-block; padding: .5rem 0; text-decoration-color: var(--hairline); }
+
+  section { padding-top: 2.25rem; margin-top: 2.25rem; border-top: 1px solid var(--hairline); scroll-margin-top: .5rem; }
+  .short { font-size: 1.125rem; line-height: 1.5; font-weight: 550; margin: 0 0 1rem; }
+  .short .label { margin-bottom: .25rem; }
+
+  dl.facts { display: grid; grid-template-columns: 1fr; gap: 0 1rem; margin: 1rem 0; }
+  @media (min-width: 34rem) { dl.facts { grid-template-columns: 11rem 1fr; } }
+  dl.facts dt { font-weight: 650; color: var(--secondary); font-size: .9375rem; padding-top: .625rem; }
+  dl.facts dd { margin: 0; padding: .125rem 0 .625rem; border-bottom: 1px solid var(--hairline); }
+  @media (min-width: 34rem) { dl.facts dt { border-bottom: 1px solid var(--hairline); padding-bottom: .625rem; } dl.facts dd { padding-top: .625rem; } }
+
+  .never { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; }
+  .never li { margin: 0; padding: .375rem .75rem; border-radius: 999px; border: 1px solid var(--hairline); background: var(--card); font-size: .9375rem; }
+
+  details { background: var(--card); border: 1px solid var(--hairline); border-radius: 14px; margin: 1rem 0; }
+  summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 48px; padding: .75rem 1rem; cursor: pointer; font-weight: 600; list-style: none; border-radius: 14px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: ""; flex: none; width: .55rem; height: .55rem; border-right: 2px solid var(--secondary); border-bottom: 2px solid var(--secondary); transform: rotate(45deg) translate(-2px, -2px); transition: transform .15s ease; }
+  details[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+  details > :not(summary) { margin-left: 1rem; margin-right: 1rem; }
+  details > :last-child { margin-bottom: 1rem; }
+
+  footer { margin-top: 3rem; padding: 1.5rem 0 3rem; border-top: 1px solid var(--hairline); color: var(--secondary); font-size: .9375rem; }
+  footer p { margin: .5rem 0; }
+  footer a { color: var(--secondary); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  @media print {
+    .skip, .nav, .toc { display: none; }
+    body { background: #fff; color: #000; }
+    section { break-inside: avoid-page; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <div class="disc" aria-hidden="true"></div>
-  <div class="label">Three · Privacy Policy</div>
-  <h1>Your days stay on your phone.</h1>
+<a class="skip" href="#main">Skip to the text</a>
 
-  <p>Three has no account and never sees your habits, your days or anything you wrote. The one thing that can leave your phone is a record of how the app is used — which screens are used, what is tapped, and whether the app is kept, by the day — and only if you turn it on in Settings. It starts off. The rest of this page says the same thing in the detail the App Store asks for.</p>
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand"><img src="icon.png" alt="" width="40" height="40">Three</div>
+    <nav class="nav" aria-label="Three">
+      <a href="support.html">Support</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
+    </nav>
+  </div>
+</header>
 
-  <h2>What the app stores</h2>
-  <p>Your habits, the days you marked them done, the answers you gave to its questions, and your settings. All of it is kept on your device, in the app's own storage, which its widgets can also read. None of it is sent to us or to anyone else.</p>
+<main id="main" class="wrap">
+  <div class="hero">
+    <span class="label">Three · Privacy</span>
+    <h1>Your days stay on your phone.</h1>
+    <p class="lede">Three has no account and never sees your habits, your days or anything you write. One thing can leave your phone: a record of how the app is used. It starts off, and it leaves only if you turn it on.</p>
+  </div>
 
-  <h2>What the app does not do</h2>
-  <p>It does not create an account. It does not use advertising or tracking of any kind, and it never links anything to you.</p>
+  <h2 class="glance-title" id="at-a-glance">At a glance</h2>
+  <ul class="glance" aria-labelledby="at-a-glance">
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.75"/><path d="M10.5 18.25h3"/></svg>
+      <h3>Stays on your phone</h3>
+      <p>Your habits and days, notes, photos, moods, reminders, and anything you type into Help me choose. None of it is sent to the developer or to anyone else.</p>
+      <a href="#on-your-phone">What's kept, and where</a>
+    </li>
+    <li class="leaves">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14.5V3.5M7.5 8 12 3.5 16.5 8"/><path d="M5 13.5v5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-5"/></svg>
+      <h3>Leaves only if you turn it on</h3>
+      <p>Which screens you use and what you tap, by the day, with a random number that stands for your phone. It goes to PostHog, is stored in the EU, and is deleted after a year.</p>
+      <span class="pill">Off until you turn it on</span><br>
+      <a href="#usage-records">What's sent, and who keeps it</a>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h3"/></svg>
+      <h3>Handled by Apple</h3>
+      <p>Payments, refunds, Siri, and your phone's own backup. Apple's privacy policy covers those, and Three never sees your payment details.</p>
+      <a href="#apple">What Apple handles</a>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></svg>
+      <h3>Never</h3>
+      <p>No account. No ads. No tracking across other apps or websites. No selling. No location.</p>
+      <a href="#rights">Your rights and choices</a>
+    </li>
+  </ul>
 
-  <h2>Usage records</h2>
-  <p>To learn whether the app works — whether people reach the first sealed day, keep going, or stop — Three can send a small record of its own use: the name of an event (a screen opened, a habit marked, a day sealed, a reminder opened, a question answered), counts and short labels such as &#8220;widget&#8221; or &#8220;yes&#8221;, the day it happened (never the time of day), the day since first launch, and the app's version. For a note, that means only that one was written, where, and roughly how long it was — never a word of it. For a habit Three has asked about, it means only rough words for what happened next, such as &#8220;steady&#8221; or &#8220;done less&#8221;. It never includes a habit's name, what it comes after, a note, a photo, a mood, the time you did something, or your name or Apple Account. Each phone is counted by an id drawn at random on this phone, with no link to you, your Apple Account or your device; because the records from one phone share that id, they are pseudonymous rather than anonymous. They go to PostHog, a processor hosted in the European Union, over an encrypted connection. Like any server, it sees the phone's internet address when they arrive; Three asks it not to work out a location from that address. They are not used for advertising. None of this is sent unless you turn on <strong>Settings → Share how you use Three</strong>, which starts off. Turning it off again stops sending at once and deletes anything still waiting on the phone.</p>
+  <nav class="toc" aria-labelledby="toc-title">
+    <h2 id="toc-title">On this page</h2>
+    <ol>
+      <li><a href="#who">Who's responsible</a></li>
+      <li><a href="#on-your-phone">What stays on your phone</a></li>
+      <li><a href="#usage-records">Usage records, if you turn them on</a></li>
+      <li><a href="#help-me-choose">Help me choose</a></li>
+      <li><a href="#apple">What Apple handles</a></li>
+      <li><a href="#moving">Moving, exporting and sharing</a></li>
+      <li><a href="#code">Code from other people</a></li>
+      <li><a href="#rights">Your rights and choices</a></li>
+      <li><a href="#deleting">Deleting your data</a></li>
+      <li><a href="#email">Emails to support</a></li>
+      <li><a href="#website">This website</a></li>
+      <li><a href="#children">Children</a></li>
+      <li><a href="#complain">Where to complain</a></li>
+      <li><a href="#changes">Changes</a></li>
+    </ol>
+  </nav>
 
-  <h2>Reminders</h2>
-  <p>Reminders are local notifications, scheduled on your device. Their wording is built from the words you typed.</p>
+  <section id="who" aria-labelledby="who-h">
+    <h2 id="who-h">1. Who's responsible</h2>
+    <p class="short"><span class="label">In short</span>One person makes Three and decides what happens to the usage records. Under data protection law, that person is the controller.</p>
+    <dl class="facts">
+      <dt>Who</dt>
+      <dd>Three's developer, one independent person</dd>
+      <dt>Email</dt>
+      <dd><a href="mailto:three.support.indie@gmail.com">three.support.indie@gmail.com</a></dd>
+    </dl>
+  </section>
 
-  <h2>Purchases</h2>
-  <p>Purchases are handled by Apple through the App Store. Three never sees your payment details. Your purchase is tied to your Apple Account, which is how Restore works on a new phone.</p>
+  <section id="on-your-phone" aria-labelledby="phone-h">
+    <h2 id="phone-h">2. What stays on your phone</h2>
+    <p class="short"><span class="label">In short</span>Everything you put into Three is kept on your phone, in the app's own storage. It isn't sent to the developer or to anyone else.</p>
+    <ul>
+      <li>Your habits, what each one comes after, and the days and times you marked them.</li>
+      <li>Notes, photos and moods from the journal. Photos are saved again when you add them, which drops their location and camera details.</li>
+      <li>Your answers to Three's questions, your reminders and your settings.</li>
+      <li>What Three has noticed, such as when you usually do a habit. It's worked out on the phone.</li>
+      <li>A random number drawn on this phone the first time Three opens. Usage records are filed under it (section 3). Deleting the app removes it. Start over doesn't change it today.</li>
+      <li>The date Three first opened on this phone, kept in the phone's Keychain so the free first day can't start again with a reinstall. It stays on this phone only and is never synced or sent. iOS keeps it even after the app is deleted.</li>
+    </ul>
+    <h3>Widgets, the Lock Screen and Apple Watch</h3>
+    <p>They read from the same storage. That means a habit's name can show on your Lock Screen, in a reminder, in the Live Activity and on your watch. Notes, moods and photos never do.</p>
+    <h3>Your phone's backup</h3>
+    <p>If your phone backs up to iCloud or to a computer, Three's data goes along with that backup. The backup is Apple's service, or your computer, not Three's.</p>
+  </section>
 
-  <h2>Siri and Shortcuts</h2>
-  <p>If you use Siri or Shortcuts with Three, the request is handled by Apple on your device. The app only receives which habit to mark done.</p>
+  <section id="usage-records" aria-labelledby="usage-h">
+    <h2 id="usage-h">3. Usage records, if you turn them on</h2>
+    <p class="short"><span class="label">In short</span>If you turn on <span class="ui">Settings → Share how you use Three</span>, the app sends short records of how it's used. They never include a habit's name, anything you wrote or the time of day. It starts off.</p>
 
-  <h2>Export and sharing</h2>
-  <p>You can export your record as a file, or share a month as an image. That data leaves your phone only when you choose to send it somewhere, and only to where you send it.</p>
+    <h3>What a record says</h3>
+    <p>Each record names one thing that happened, such as a screen opened, a habit marked, a day sealed or a question answered, with a few short labels and counts. It also carries:</p>
+    <ul>
+      <li>the day it happened, never the time of day</li>
+      <li>how many days it's been since Three first opened</li>
+      <li>the app's version</li>
+      <li>the random number that stands for your phone</li>
+    </ul>
+    <details>
+      <summary>Every kind of record, listed</summary>
+      <ul>
+        <li>Opening the app, and finishing the first pages.</li>
+        <li>Adding, changing, pausing, graduating or removing a habit, with counts such as how many days a week. Never its name.</li>
+        <li>Marking a habit, where from (the app, a widget, the Watch, a reminder), and whether the day sealed.</li>
+        <li>Answers to Three's questions: why a day was missed (forgot, no time, didn't want to), whether a habit feels automatic, and the one extra question in a small experiment.</li>
+        <li>Which half of that experiment this phone is in. Half the phones are asked the extra question and half aren't, to see whether it helps.</li>
+        <li>Reminders turned on or off, how many are planned, a reminder opened, and whether notifications are allowed. Never their times.</li>
+        <li>That a note was written, where, and roughly how long it was, in four sizes. Never a word of it.</li>
+        <li>That a mood, a feeling or photos were saved, and how many photos. Never which mood or feeling.</li>
+        <li>Screens opened: Today, You, Settings, a habit's page, Why three, Plan your day.</li>
+        <li>A focus session started or ended, in minutes.</li>
+        <li>Help me choose opened, whether something was typed, whether it found a match, and how many habits were saved. Never what was typed.</li>
+        <li>Offers Three makes, shown and answered.</li>
+        <li>The plans screen shown, a plan bought (Yearly or Lifetime) and purchases restored.</li>
+        <li>A month shared, the record exported, moved to another phone, or a day put right.</li>
+        <li>Start over, with the reason picked from a short list.</li>
+        <li>Turning sharing on.</li>
+        <li>Something that broke: where, and what kind of error. Never its message.</li>
+      </ul>
+    </details>
 
-  <h2>Other companies&#8217; code</h2>
-  <p>Three contains no third-party SDKs — no advertising, attribution, crash-reporting or social libraries. The usage records described above are sent by a few dozen lines of the app&#8217;s own code over a normal encrypted connection, not by someone else&#8217;s software running inside the app.</p>
+    <h3>What a record never says</h3>
+    <ul class="never" aria-label="Never sent">
+      <li>A habit's name</li>
+      <li>What it comes after</li>
+      <li>Notes or journal lines</li>
+      <li>What you type into Help me choose</li>
+      <li>Photos</li>
+      <li>Which mood or feeling</li>
+      <li>The time you did anything</li>
+      <li>Why you paused</li>
+      <li>Anything about health, food or weight</li>
+      <li>Your name or email</li>
+      <li>Your Apple Account</li>
+      <li>Contacts or location</li>
+    </ul>
+    <p>Three has no analytics software from anyone else inside it, so nothing else can be picked up. No screen recording, no replays, no capture of what you type.</p>
 
-  <h2>Deleting your data</h2>
-  <p>Settings → Start over erases everything the app holds on your phone, immediately and with no copy kept. There is no account to close. For usage records, see the section above: the switch stops them and clears what is waiting, and you can email us to have what was already sent removed.</p>
+    <h3>Why the random number matters</h3>
+    <p>Records from one phone share the same random number. It isn't your name and isn't linked to your Apple Account, but it does tie one phone's records together. That makes them pseudonymous, not anonymous, and they're treated as personal data.</p>
 
-  <h2>Children</h2>
-  <p>Three is rated 4+. It asks no one for a name, an age or contact details, and usage records stay off unless someone turns them on.</p>
+    <h3>Why they're collected</h3>
+    <p>To learn whether Three works: whether people reach a first sealed day, keep going, or stop, which parts help, and what breaks. They aren't used for ads, aren't sold, and aren't used to decide anything about you.</p>
+    <p>The legal basis is your consent, given by turning the switch on (GDPR Art. 6(1)(a)). You can take it back any time by turning the switch off.</p>
 
-  <h2>Changes</h2>
-  <p>If any of this ever changes, this page will say so, and the app's version notes will say so too.</p>
+    <h3>Who receives them</h3>
+    <p>PostHog, Inc., a US company, stores them for Three in its EU cloud in Frankfurt, Germany, under a data processing agreement. PostHog uses a few other companies to run its service. They're listed at <a href="https://posthog.com/subprocessors">posthog.com/subprocessors</a>. Records travel over an encrypted connection.</p>
+    <p>Like any server, PostHog sees the phone's internet address when records arrive. Three asks it not to work out a place from it, and PostHog is set to throw the address away.</p>
+    <p>Only the developer reads the records, from India. PostHog, Inc. relies on the EU–US Data Privacy Framework and standard contractual clauses.</p>
 
-  <footer>
-    <p>Questions: see the <a href="support.html">support page</a>.</p>
-    <p>Last updated 24 September 2026.</p>
-  </footer>
+    <h3>How long they're kept</h3>
+    <p>PostHog deletes each record a year after it arrives. On the phone, records wait in a short queue until they're sent in a batch.</p>
+
+    <h3>Turning it off</h3>
+    <p><span class="ui">Settings → Share how you use Three</span>. Off stops sending at once and deletes anything still waiting on the phone, so nothing from before can be sent later. Nothing in Three depends on it being on.</p>
+  </section>
+
+  <section id="help-me-choose" aria-labelledby="choose-h">
+    <h2 id="choose-h">4. Help me choose</h2>
+    <p class="short"><span class="label">In short</span>Anything you type into Help me choose is read on your phone and never sent.</p>
+    <p>Help me choose uses a small language model that comes inside the app and runs on the phone. What you type is kept in memory only while it's read, then cleared. It isn't saved and never leaves the phone.</p>
+    <p>If sharing is on, a record says only that Help me choose was used, whether you typed, and whether it found a match. Lines about a hard time, food or weight are never counted.</p>
+  </section>
+
+  <section id="apple" aria-labelledby="apple-h">
+    <h2 id="apple-h">5. What Apple handles</h2>
+    <p class="short"><span class="label">In short</span>Payments, refunds, Siri and your phone's backup go through Apple, under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.</p>
+    <h3>Purchases</h3>
+    <p>Apple takes payment through the App Store. Three never sees your payment details, your name or your Apple Account. It learns only whether a plan is active. Restore works through your Apple Account, which is how a plan follows you to a new phone.</p>
+    <h3>Siri and Shortcuts</h3>
+    <p>When you ask Siri or run a shortcut, Apple handles the request, on the phone or on Apple's servers depending on your settings. Three receives only which habit to mark done, or that you asked how many days are sealed.</p>
+    <h3>Reminders</h3>
+    <p>Reminders are notifications the phone schedules itself. Nothing sends them from a server. Their words come from the words you typed.</p>
+  </section>
+
+  <section id="moving" aria-labelledby="moving-h">
+    <h2 id="moving-h">6. Moving, exporting and sharing</h2>
+    <p class="short"><span class="label">In short</span>Your record leaves the phone only when you send it, and only to where you send it.</p>
+    <ul>
+      <li><span class="ui">Export your days</span> writes one file with every habit and every day.</li>
+      <li><span class="ui">Move to another phone</span> makes one file locked with a code that's shown only on your phone. Nobody can open the file without the code, the developer included.</li>
+      <li>Sharing a month or a graduation as an image sends that image where you choose.</li>
+    </ul>
+  </section>
+
+  <section id="code" aria-labelledby="code-h">
+    <h2 id="code-h">7. Code from other people</h2>
+    <p class="short"><span class="label">In short</span>Three includes a few pieces of open-source code. None of them sends anything anywhere.</p>
+    <ul>
+      <li><strong>ONNX Runtime</strong>, from Microsoft, runs Help me choose's language model on the phone.</li>
+      <li><strong>PopupView</strong>, from exyte, draws some of the app's sheets.</li>
+      <li><strong>Phosphor Icons</strong> draws some of the app's icons.</li>
+      <li>The language model is built on Microsoft's multilingual E5.</li>
+    </ul>
+    <p>There's no advertising, analytics, crash-reporting or social software from anyone else. Usage records are sent by the app's own code. Every licence is in the app, under <span class="ui">Settings → Open-source licences</span>.</p>
+  </section>
+
+  <section id="rights" aria-labelledby="rights-h">
+    <h2 id="rights-h">8. Your rights and choices</h2>
+    <p class="short"><span class="label">In short</span>You can stop sharing, take your record with you, and erase it, all from Settings. For usage records you also have legal rights.</p>
+    <dl class="facts">
+      <dt>Stop usage records</dt>
+      <dd>Turn off <span class="ui">Settings → Share how you use Three</span>.</dd>
+      <dt>Take your record</dt>
+      <dd><span class="ui">Settings → Export your days</span>.</dd>
+      <dt>Erase your record</dt>
+      <dd><span class="ui">Settings → Start over</span>. See <a href="#deleting">Deleting your data</a>.</dd>
+    </dl>
+    <p>In the EU, the UK and places with similar laws, you can ask to see, correct or delete personal data about you, to limit or object to its use, and to get a copy you can take elsewhere. You can take back your consent any time. That doesn't change what was done before.</p>
+    <p>To ask, write to <a href="mailto:three.support.indie@gmail.com">three.support.indie@gmail.com</a>. You'll get an answer within a month. Section 9 says honestly what can and can't be found.</p>
+  </section>
+
+  <section id="deleting" aria-labelledby="deleting-h">
+    <h2 id="deleting-h">9. Deleting your data</h2>
+    <p class="short"><span class="label">In short</span>What's on your phone, you can erase yourself, at once. Usage records already sent can't be picked out by anyone, so they're deleted after a year.</p>
+    <h3>On your phone</h3>
+    <p><span class="ui">Settings → Start over</span> erases your habits, days, notes, photos and moods, straight away, with no copy anywhere else. Two small things stay: the random number and the Keychain date (section 2).</p>
+    <h3>Usage records already sent</h3>
+    <p>They carry no name, and nothing in the app shows you the number they're filed under. So today neither you nor the developer can pick out yours to delete them. Turning sharing off stops new ones at once and deletes any still waiting on the phone. What was already sent is deleted a year after it arrived.</p>
+  </section>
+
+  <section id="email" aria-labelledby="email-h">
+    <h2 id="email-h">10. Emails to support</h2>
+    <p class="short"><span class="label">In short</span>If you write, your email is used only to answer you.</p>
+    <p>Emails are kept in Gmail, which Google runs. Only the developer reads them. They're kept only as long as it takes to answer you. The basis is answering what you asked (GDPR Art. 6(1)(f)).</p>
+  </section>
+
+  <section id="website" aria-labelledby="website-h">
+    <h2 id="website-h">11. This website</h2>
+    <p class="short"><span class="label">In short</span>This page runs no scripts, sets no cookies and loads nothing from anywhere else.</p>
+    <p>These pages are hosted by GitHub Pages. GitHub logs each visitor's internet address for security, under <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>. The support page has a few lines of its own script to search its answers. It runs in your browser and sends nothing.</p>
+  </section>
+
+  <section id="children" aria-labelledby="children-h">
+    <h2 id="children-h">12. Children</h2>
+    <p class="short"><span class="label">In short</span>Three asks no one for a name, an age or contact details.</p>
+    <p>Usage records stay off unless someone turns them on.</p>
+  </section>
+
+  <section id="complain" aria-labelledby="complain-h">
+    <h2 id="complain-h">13. Where to complain</h2>
+    <p class="short"><span class="label">In short</span>Write first. If you're not happy with the answer, you can complain to a data protection authority.</p>
+    <ul>
+      <li>In the EU, the authority where you live or work. The European Data Protection Board <a href="https://www.edpb.europa.eu/about-edpb/our-members_en">lists them all</a>.</li>
+      <li>In the UK, the <a href="https://ico.org.uk/make-a-complaint/">Information Commissioner's Office</a>.</li>
+    </ul>
+  </section>
+
+  <section id="changes" aria-labelledby="changes-h">
+    <h2 id="changes-h">14. Changes</h2>
+    <p>If any of this changes, this page will say so with a new date, and the app's version notes will say so too.</p>
+    <p>This page is in English.</p>
+  </section>
 </main>
+
+<footer class="wrap">
+  <p>Questions: <a href="mailto:three.support.indie@gmail.com">three.support.indie@gmail.com</a> · <a href="support.html">Support</a></p>
+  <p>Last updated 25 September 2026.</p>
+</footer>
 </body>
 </html>
