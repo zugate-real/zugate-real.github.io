@@ -208,7 +208,7 @@
       <li>Your answers to Three's questions, what you picked in Help me choose, your reminders and your settings.</li>
       <li>What Three has noticed, such as when you usually do a habit. It's worked out on the phone.</li>
       <li>A random number made on this phone. If you share how you use Three, the records are filed under it (section 3). Deleting the app removes it. Start over keeps it.</li>
-      <li>The date Three first opened on this phone, kept in the phone's Keychain so the free first day can't start again with a reinstall. It stays on this phone only and is never synced. The date itself is never sent, though shared records count days from it (section 3). iOS keeps it even after the app is deleted.</li>
+      <li>The date Three first opened on this phone, kept in the phone's Keychain so a reinstall doesn't reset it. It stays on this phone only and is never synced. The date itself is never sent, though shared records count days from it (section 3). iOS keeps it even after the app is deleted.</li>
     </ul>
     <h3>Widgets, the Lock Screen and Apple Watch</h3>
     <p>They read from the same storage. That means a habit's name can show on your Lock Screen, in a reminder, in the Live Activity and on your watch. Notes, moods and photos never do.</p>
@@ -239,7 +239,7 @@
         <li>That a short line was shown at the bottom of the screen, and which kind. Never the line.</li>
         <li>Adding, changing, pausing, resuming, graduating or removing a habit, with counts such as how many days a week, and whether it came from Three's suggestions or your own words. Never its name.</li>
         <li>Reaching the three-habit limit, or raising it.</li>
-        <li>Marking a habit, where from (the app, a widget, the Watch, a reminder), whether it was done before its reminder, and whether the day sealed.</li>
+        <li>Marking a habit, where from (the app, a widget, the Live Activity, the Watch, a reminder or Siri), whether it was done before its reminder, and whether the day sealed.</li>
         <li>How soon the first habit was marked after Three first opened, in rough bands.</li>
         <li>Answers to Three's questions: why a day was missed (forgot, no time, didn't want to), whether a habit feels automatic, the one question about a habit you wrote yourself, and the extra question in a small experiment.</li>
         <li>Which half of that experiment a habit is in. Half the habits that qualify are asked the extra question and half aren't, to see whether it helps.</li>
@@ -293,7 +293,7 @@
     <p>Only the developer reads the records, from India. PostHog, Inc. relies on the EU–US Data Privacy Framework and standard contractual clauses.</p>
 
     <h3>How long they're kept</h3>
-    <p>PostHog deletes each record a year after it arrives. On the phone, records wait in a short queue until they're sent in a batch.</p>
+    <p>PostHog deletes each record a year after it arrives. On the phone, records wait in a short queue until they're sent in a batch. A habit marked from a widget while Three is closed waits on the phone until Three next opens.</p>
 
     <h3>Turning it off</h3>
     <p><span class="ui">Settings → Share how you use Three</span>. Off stops sending at once and deletes anything still waiting on the phone, so nothing from before can be sent later. Everything in Three works the same either way.</p>
